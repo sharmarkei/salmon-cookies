@@ -26,7 +26,7 @@ firstPike.cooksPerCust = function() {
   }
 },
 
-// firstPike.avgCusArr();
+// firstPike.avgCusArr(); 
 // firstPike.custHourly();
 // firstPike.domStuff();
 
