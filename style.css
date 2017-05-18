@@ -1,60 +1,54 @@
-/* global styles */
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
+/* base styles*/
 body {
-	line-height: 1;
+  font-family: helvetica;
+  background: grey;
 }
-ol, ul {
-	list-style: none;
+
+fieldset {
+  padding: 20px;
 }
-blockquote, q {
-	quotes: none;
+
+input[type="text"] {
+  padding: 7px;
+  margin-left: 7px;
+  border: solid 1px #000;
+  border-radius: 3px; /*curves radius*/
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+
+input[type="text"]:focus {
+  background: red;
+  color: #000;
 }
+
+button {
+  margin-left: 20px;
+  margin-bottom: 20px;
+  border: none;
+  padding: 8px 18px;
+  background: black;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 20px;
+}
+fieldset {
+  background: silver;
+}
+
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-* {
-  font-family: 'Cormorant', serif;
+  margin-left: 20px;
 
 }
 
-body {
-  font-family: helvertica;
+thead {
+  background-color: teal;
+}
+
+td {
+  padding-left: 30px;
+  border: solid 1px #000;
+  text-align: center;
+  padding: 20px;
 }
 
 a {
@@ -71,6 +65,7 @@ h1 {
   font-size: 72pt;
   text-align: center;
 }
+
 
 
 header {
