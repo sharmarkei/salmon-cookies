@@ -14,7 +14,9 @@ function Store(name,minCust,maxCust,avgCookiesPerHr) {
   this.maxCust = maxCust;
   this.avgCookiesPerHr = avgCookiesPerHr;
   this.cookiesPerHrArray = ['<td>' + name + '</td>'];
+  // this.salesGen();
 }
+
 // Populate array of avg customers per hour
 Store.prototype.custHourly = function() {
   var randomNumOfCookiesSoldPerHour =  Math.floor(Math.random() * (this.maxCust - this.minCust)) + this.minCust;
@@ -22,12 +24,13 @@ Store.prototype.custHourly = function() {
   return randomNumOfCookiesSoldPerHour;
 };
 
-// Popultae the cookies per hour array
-Store.prototype.salesGen = function () {
+// Populate the cookies per hour array
+Store.prototype.salesGen = function() {
   var total = 0;
   for (var i = 0; i < hours.length; i++) {
     var hourlyCookies = Math.ceil(this.custHourly() * this.avgCookiesPerHr);
     this.cookiesPerHrArray.push('<td>' + hourlyCookies + '</td>');
+
     total += hourlyCookies;
   }
   this.cookiesPerHrArray.push('<td>' + total + '</td>');
@@ -36,7 +39,7 @@ Store.prototype.salesGen = function () {
 //
 Store.prototype.render = function() {
   var tableRow = document.createElement('tr');
-  console.log(tableRow);
+  //console.log(tableRow);
   tableRow.innerHTML = this.cookiesPerHrArray.join('');
   table.appendChild(tableRow);
 };
@@ -54,7 +57,10 @@ var alki = new Store('Alki', 2, 16, 4.6);
 var storeArr = [firstPike, seaAirport, seaCenter, capHill, alki];
 
 function renderStores() {
+  console.log(firstPike);
+
   for (var i = 0; i < storeArr.length; i++) {
+
     storeArr[i].salesGen();
     storeArr[i].render();
   }
@@ -71,10 +77,10 @@ function formData(event) {
   var maxCust = parseInt(event.target.maxCust.value);
   var avgCookiesPerHr = parseInt(event.target.avgCookiesPerHr.value);
 
-  var sharmarke = new Store(name, minCust, maxCust, avgCookiesPerHr);
+  var newStore = new Store(name, minCust, maxCust, avgCookiesPerHr);
   // createTable();
-  sharmarke.salesGen();
-  sharmarke.render();
+  newStore.salesGen();
+  newStore.render();
   form.reset();
 }
 
