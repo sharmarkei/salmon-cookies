@@ -4,6 +4,10 @@ body {
   background: grey;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 fieldset {
   padding: 20px;
 }
@@ -63,7 +67,8 @@ a {
 h1 {
   font-family: 'Cormorant', serif;
   font-size: 72pt;
-  text-align: center;
+  text-align: right;
+  text-indent: -2439px;
 }
 
 
@@ -71,6 +76,17 @@ h1 {
 header {
   height: 100px;
   background-image: url("https://s-media-cache-ak0.pinimg.com/736x/3e/ff/40/3eff4027c8fb613fa85e1277bf8108ac.jpg");
+  position: absolute;
+  width: 50px;
+  height: 200px;
+  background: black;
+  top: 20px;
+  border-radius: 0 1px 10px 0;
+  transition: 2000ms all;
+}
+header:hover {
+  width: 100%;
+  background: #444;
 }
 
 header div {
@@ -87,6 +103,7 @@ header div img {
 li {
   color: black;
 }
+
 
 nav ul li {
   display: inline-block;
