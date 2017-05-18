@@ -1,6 +1,7 @@
 /* base styles*/
 body {
   font-family: helvetica;
+  background: grey;
 }
 
 fieldset {
@@ -15,8 +16,8 @@ input[type="text"] {
 }
 
 input[type="text"]:focus {
-  background: #000;
-  color: #fff;
+  background: red;
+  color: #000;
 }
 
 button {
@@ -24,24 +25,30 @@ button {
   margin-bottom: 20px;
   border: none;
   padding: 8px 18px;
-  background: #000;
+  background: black;
   color: #fff;
   border-radius: 3px;
   cursor: pointer;
   font-size: 20px;
 }
+fieldset {
+  background: silver;
+}
 
 table {
   margin-left: 20px;
+
 }
 
 thead {
-  background-color: #888;
+  background-color: teal;
 }
 
 td {
-  padding-left: 20px;
+  padding-left: 30px;
   border: solid 1px #000;
+  text-align: center;
+  padding: 20px;
 }
 
 a {
@@ -58,6 +65,7 @@ h1 {
   font-size: 72pt;
   text-align: center;
 }
+
 
 
 header {
