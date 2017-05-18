@@ -14,7 +14,7 @@ function Store(name,minCust,maxCust,avgCookiesPerHr) {
   this.maxCust = maxCust;
   this.avgCookiesPerHr = avgCookiesPerHr;
   this.cookiesPerHrArray = ['<td>' + name + '</td>'];
-  //this.salesGen();
+  // this.salesGen();
 }
 
 // Populate array of avg customers per hour
