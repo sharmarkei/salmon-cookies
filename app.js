@@ -84,19 +84,4 @@ function formData(event) {
   form.reset();
 }
 
-function createTable() {
-  var row;
-  //loop thru my data array, then
-  for (var i = 0; i < data.length; i++) {
-    row = document.createElement('tr');
-    row.innerHTML ='<td>' + data[i].first +'</td>' +
-    '<td>' + data[i].name + '</td>' +
-    '<td>' + data[i].minCust + '</td>' +
-    '<td>' + data[i].maxCust + '</td>' +
-    '<td>' + storeArr[i].avgCookiesPerHr + '</td>';
-  }
-  //finds table and added new row with all the <td>'s'
-  table.appendChild(row);
-}
-
 form.addEventListener('submit', formData);
