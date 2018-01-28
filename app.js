@@ -1,137 +1,112 @@
 'use strict';
 
-// Hours that stores are open
-var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm','1pm', '2pm','3pm','4pm','5pm', '6pm','7pm','8pm'];
-
-// Constructor
-function Store(name,minCust,maxCust,avgCookiesPerHr) {
+//constructor function
+function Store(name, minCustomer, maxCustomer, avgSales) {
   this.name = name;
-  this.minCust = minCust;
-  this.maxCust = maxCust;
-  this.avgCookiesPerHr = avgCookiesPerHr;
-  this.cookiesPerHrArray = [];
-  this.totalCookiesSoldArray = 0;
-  this.populateCookiesPerHrArray();
-  this.totalCookiesPerStoreDaily();
-  this.listThings();
+  this.minCustomer = minCustomer;
+  this.maxCustomer = maxCustomer;
+  this.avgSales = avgSales;
+  this.hourlySales = [];
 }
 
-// Populate array of avg customers per hour
-Store.prototype.custHourly = function() {
-  var randomNumOfCookiesSoldPerHour =  Math.floor(Math.random() * (this.maxCust - this.minCust)) + this.minCust;
-
-  return randomNumOfCookiesSoldPerHour;
+//prototype chain methods
+Store.prototype.customerPerHour = function () {
+  var customers = Math.floor(Math.random() * (this.maxCustomer - this.minCustomer) + this.minCustomer);
+  return customers;
 };
 
-// Popultae the cookies per hour array
-Store.prototype.populateCookiesPerHrArray = function () {
-
-  for (var i = 0; i < hours.length; i++) {
-    var hourlyCookies = this.custHourly() * this.avgCookiesPerHr;
-    this.cookiesPerHrArray.push(Math.ceil(hourlyCookies));
+//an array of sales by the hour ranging 14 hours
+Store.prototype.salesByHour = function () {
+  for (var i = 0; i < 14; i++) {
+    var sales = this.customerPerHour() * this.avgSales;
+    this.hourlySales.push(Math.ceil(sales));
   }
-  return this.cookiesPerHrArray;
-};
 
-// This will store the total number of cookies sold per store daily
-Store.prototype.totalCookiesPerStoreDaily =  function() {
-
+  //adds the sales per hour together with the loop
   var totalSales = 0;
-  for(var j = 0; j < this.cookiesPerHrArray.length; j++) {
-    totalSales += this.cookiesPerHrArray[j];
+  for (var j = 0; j < this.hourlySales.length; j++) {
+    totalSales = this.hourlySales[j] + totalSales;
   }
-
-  this.totalCookiesSoldArray = totalSales;
-  return this.totalCookiesSoldArray;
+  this.hourlySales.push(totalSales); //pushes total to end of the array
+  return this.hourlySales;
 };
 
-// Initialize constructor
-var firstPike = new Store('First and Pike', 23, 65, 6.3);
-var seaAirport = new Store('SeaTac', 3, 24, 1.2);
-var seaCenter = new Store('Seattle Center', 11, 38, 3.7);
-var capHill = new Store('Capitol Hill', 20, 38, 2.3);
+// the store objects pass in their arguments
+var firstAndPike = new Store('1st and Pike', 23, 65, 6.3);
+var seaTacAirport = new Store('SeaTac Airport', 3, 24, 1.2);
+var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
+var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
 
-var storeArr = [firstPike, seaAirport, seaCenter, capHill, alki];
+//array of the store loactions to be used in DOM building loops
+var locations = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
+
+for (var k = 0; k < locations.length; k++) {
+  locations[k].salesByHour();
+}
+
+//created the table header here
+function createHeader() {
+  var thead = document.getElementById('thead');
+  var headValues = ['', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', 'Total'];
+
+  // creates the newHead to be used to build the DOM
+  var newHead;
+
+  //loops the headValues in the array above and puts them in the DOM table head
+  for (var a = 0; a < headValues.length; a++) {
+    newHead = document.createElement('td');
+    newHead.innerHTML = headValues[a];
+    thead.appendChild(newHead);
+  }
+}
+
+createHeader();
+
+//filling out the bulk of the table by looping the objects values and assigning them to a data array
+var table = document.getElementById('shell');
+var data = [];
+
+for (var m = 0; m < locations.length; m++) {
+  var dataList = '<td>' + locations[m].name + '</td>';
+  for (var n = 0; n < 15; n++) {
+    dataList = dataList + '<td>' + locations[m].hourlySales[n] + '</td>';
+  }
+  data.push(dataList);
+}
+
+//placing all the data collected in the data array into the DOM
+var newRow;
+
+for (var z = 0; z < data.length; z++) {
+  newRow = document.createElement('tr');
+  newRow.innerHTML = data[z];
+  table.appendChild(newRow);
+}
+
+function createFooter() {
+  var tfoot = document.getElementById('tfoot');
+  var footValues = ['<td>' + 'Totals' + '</td>'];
 
 
-
-
-
-listStoreInTable = function() {
-  var container = document.createElement('table');
-  container.innerHTML = '<thead></thead>';
-  document.body.appendChild(container);
-
-  var list = document.createElement('thead');
-  var listArr = [];
-
-  for (var i = 0; i < hours.length; i++) {
-
-    if (i < 5) {
-      listArr.push('<td>' + hours[i] + ': ' + this.cookiesPerHrArray[i] + ' cookies</td>');
-    } else {
-      listArr.push('<td>' + hours[i] + ': ' + this.cookiesPerHrArray[i] + ' cookies</td>');
-
+  var grandTotal = [];
+  for (var b = 0; b < locations.length; b++) {
+    grandTotal = 0;
+    for (var x = 0; x < 15; x++) {
+      grandTotal.push(locations[b].hourlySales[x] + grandTotal);
     }
   }
+  //assembling the grand total for the table
+  var grandDataList = [];
+  for (var y = 0; y < 15; y++) {
+    grandDataList = grandDataList + '<td>' + grandTotal[y] + '</td>';
+  }
+  footValues.push(grandDataList);
 
-  listArr.push('<td>Total: ' + this.totalCooks + ' cookies</td>');
+  //loops the headValues in the array above and puts them in the DOM table head
+  var newFoot = document.createElement('tr');
+  newFoot.innerHTML = footValues.join('');
+  tfoot.appendChild(newFoot);
+}
 
-  var fullString = listArr.join('');
-  list.innerHTML = fullString;
-  document.body.appendChild(list);
-};
-
-
-
-//
-//   // Populate array of avg customers per hour
-//   Location.prototype.custHourly = function() {
-//     for (var i = 0; i < hours.length; i++) {
-//       var custOneHour = Math.floor(Math.random() * (this.maxCust - this.minCust)) + this.minCust;
-//       this.avgCustArr.push(custOneHour);
-//     }
-//   },
-//
-//   // Number of cookies customers buys per hour
-//   Location.prototype.cooksPerCust: function() {
-//     for (var j = 0; j < hours.length; j++) {
-//       this.totalCooks += this.avgCustArr[j];
-//     }
-//
-//   },
-//
-//   // Creates list and appends to the DOM
-
-
-
-
-
-//   listThings: function() {
-//     var container = document.createElement('table');
-//     container.innerHTML = '<h3>' + this.name + '</h3>';
-//     document.body.appendChild(container);
-//
-//     var list = document.createElement('thead');
-//     var listArr = [];
-//
-//     for (var i = 0; i < hours.length; i++) {
-//
-//       if (i < 5) {
-//         listArr.push('<td>' + hours[i] + ': ' + this.avgCustArr[i] + ' cookies</td>');
-//       } else {
-//         listArr.push('<td>' + hours[i] + ': ' + this.avgCustArr[i] + ' cookies</td>');
-//       }
-//     }
-//     listArr.push('<td>Total: ' + this.totalCooks + ' cookies</td>');
-//
-//     var fullString = listArr.join('');
-//     list.innerHTML = fullString;
-//     document.body.appendChild(list);
-//   }
-// };
-//
-// firstPike.custHourly();
-// firstPike.cooksPerCust();
-// firstPike.listThings();
+createFooter();
